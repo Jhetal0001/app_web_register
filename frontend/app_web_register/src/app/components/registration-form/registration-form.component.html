@@ -1,0 +1,153 @@
+<div class="modal-body p-4 m-5 border rounded-5 shadow" @fadeInOut>
+  <h3 class="text-center mb-5">Register User</h3>
+  <form [formGroup]="newUserForm" *ngIf="!newUserFormValid" class="needs-validation" [class.was-validated]="validatedForm" @fadeInOut>
+    <div class="row g-2">
+      <div class="col-md">
+        <div class="form-floating mb-3">
+          <input type="text" id="firstName" class="form-control rounded-3" placeholder="firstName" autocomplete="false" formControlName="firstName" required>
+          <label for="firstName">First name</label>
+          <div *ngIf="validatedForm && newUserForm?.get('firstName')?.hasError('required')" class="invalid-feedback">
+            first name is required
+          </div>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="form-floating mb-3">
+          <input type="text" id="lastName" class="form-control rounded-3" placeholder="lastName" autocomplete="false" formControlName="lastName" required>
+          <label for="lastName">Last name</label>
+          <div *ngIf="validatedForm && newUserForm?.get('lastName')?.hasError('required')" class="invalid-feedback">
+            Last name is required.
+          </div>
+        </div>
+      </div>
+      <div class="col-1">
+        <div class="form-floating">
+          <input class="form-control " type="text" name="code" id="code" [ngClass]="{'is-invalid': validatedForm && newUserForm.controls['code'].invalid}" placeholder="+57" formControlName="code" required>
+          <label for="code">Area code</label>
+          <div *ngIf="newUserForm.controls['code'].invalid" class="invalid-feedback">
+            Area code is required, must be <b>2</b> characters.
+          </div>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="col-md">
+          <div class="input-group-append">
+            <div class="form-floating mb-3">
+              <input type="text" id="phoneNumber" class="form-control rounded-3" [ngClass]="{'is-invalid': validatedForm && newUserForm.controls['phoneNumber'].invalid}" placeholder="Phone Number" autocomplete="false" formControlName="phoneNumber" required>
+              <label for="phoneNumber">Phone Number</label>
+              <div *ngIf="newUserForm.controls['phoneNumber'].invalid" class="invalid-feedback">
+                Phone number is required, must be <b>10</b> characters.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-2">
+      <div class="col-md">
+        <div class="form-floating mb-3">
+          <input type="text" id="address" class="form-control rounded-3" autocomplete="false" placeholder="address" formControlName="address" required>
+          <label for="address">Address</label>
+          <div *ngIf="newUserForm.controls['address'].invalid" class="invalid-feedback">
+            Address is required.
+          </div>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="form-floating mb-3">
+          <input type="text" id="city" class="form-control rounded-3" placeholder="city" autocomplete="false" formControlName="city" required>
+          <label for="city">City</label>
+          <div *ngIf="validatedForm && newUserForm?.get('city')?.hasError('required')" class="invalid-feedback">
+            Last name is required.
+          </div>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="form-floating mb-3">
+          <input type="text" id="country" class="form-control rounded-3" placeholder="country" autocomplete="false" formControlName="country" required>
+          <label for="country">Country</label>
+          <div *ngIf="validatedForm && newUserForm?.get('country')?.hasError('required')" class="invalid-feedback">
+            Country is required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-2">
+      <div class="col-md">
+        <div class="form-floating mb-3">
+          <select
+            class="form-select rounded-3"
+            name="gender"
+            id="gender"
+            placeholder="Select your gender"
+            formControlName="gender"
+            required
+          >
+            <option *ngFor="let gender of genders" [value]="gender" required>
+              {{ gender }}
+            </option>
+          </select>
+          <label for="gender">Select your gender</label>
+          <div *ngIf="validatedForm && newUserForm?.get('gender')?.hasError('required')" class="invalid-feedback">
+            Gender is required.
+          </div>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="form-floating mb-3">
+          <input type="date" id="birthdate" class="form-control rounded-3" [ngClass]="{'is-invalid': validatedForm && newUserForm.controls['birthdate'].invalid}" placeholder="birthdate" formControlName="birthdate" required>
+          <label for="birthdate">Birthdate</label>
+          <div *ngIf="newUserForm.controls['birthdate'].invalid" class="invalid-feedback">
+            The date of birth is required and must be less than {{currentDate | date}}.
+          </div>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="form-floating mb-3">
+          <input type="text" id="email" class="form-control rounded-3" [ngClass]="{'is-invalid': validatedForm && newUserForm.controls['email'].invalid}" autocomplete="false" placeholder="email" formControlName="email" required>
+          <label for="email">Email</label>
+          <div *ngIf="newUserForm.controls['email'].invalid" class="invalid-feedback">
+            Email is required, example: example@example.com.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <button class="mb-2 btn rounded-3 btn-primary" type="submit" (click)="validFormOne()">Next</button>
+    </div>
+
+  </form>
+  <form [formGroup]="createUserForm" *ngIf="newUserFormValid" class="needs-validation" [class.was-validated]="validatedForm" @fadeInOut>
+    <div class="row g-2">
+      <div class="col-md">
+        <div class="form-floating mb-3">
+          <input type="text" id="userName" class="form-control rounded-3" placeholder="userName" autocomplete="false" formControlName="userName" required>
+          <label for="userName">User name</label>
+          <div *ngIf="validatedFormTwo && createUserForm?.get('userName')?.hasError('required')" class="invalid-feedback">
+            User name is required
+          </div>
+        </div>
+      </div>
+      <div class="col-md">
+        <div class="form-floating mb-3 position-relative">
+          <input type="password" id="password" class="form-control rounded-3" [ngClass]="{'is-invalid': validatedFormTwo && createUserForm.controls['password'].invalid}" placeholder="password" autocomplete="false" formControlName="password" [type]="showPassword ? 'text' : 'password'" required>
+          <label for="password">Password</label>
+          <div *ngIf="createUserForm.controls['password'].invalid" class="invalid-feedback">
+            Password is required, must contain at least 4 characters.
+          </div>
+          <div class="position-absolute end-0 top-0 p-3 me-4 text-secondary" (click)="showPassword = !showPassword">
+            <i class="fa" [ngClass]="{'fa-eye-slash': showPassword, 'fa-eye': !showPassword}"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex my-4 justify-content-center">
+      <button class="mb-2 btn rounded-3 btn-primary mx-3" type="button" (click)="newUserFormValid = false" >Back</button>
+      <button class="mb-2 btn rounded-3 btn-success" type="submit" (click)="registerUser()">Sign in</button>
+    </div>
+  </form>
+</div>

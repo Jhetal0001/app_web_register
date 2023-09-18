@@ -1,0 +1,103 @@
+<div class="modal-body p-4 m-4 border rounded-5 shadow" @fadeInOut>
+  <h3 class="text-center mb-4">User List</h3>
+  <div class="d-flex justify-content-end mx-5 px-4">
+    <div class="input-group input-group-sm d-flex justify-content-end w-50">
+      <label class="input-group-text btn btn-secondary" for="filterBy"><b>Filter By</b></label>
+      <select class="form-select flex-grow-1 btn btn-secondary" name="filterBy" id="filterBy" [(ngModel)]="filterBy">
+        <option value="firstName">First name</option>
+        <option value="lastName">Last name</option>
+        <option value="userName">User name</option>
+        <option value="email">Email</option>
+        <option value="phone">Phone</option>
+        <option value="registrationDate">Registration date</option>
+      </select>
+      <input *ngIf="filterBy !== 'registrationDate'" class="form-control w-auto" type="text" name="filter" id="filter" [(ngModel)]="filter" (input)="applyFilter()">
+      <input *ngIf="filterBy === 'registrationDate'" class="form-control w-auto" type="date" name="filter" id="filter" [(ngModel)]="filterRegistrationDate" (input)="applyFilter()">
+    </div>
+  </div>
+  <div class="table-container overflow-auto scrollbars px-2 mt-4 mx-5">
+    <table class="table table-striped table-secondary table-hover rounded-2">
+      <thead>
+        <tr class="fs-6">
+          <th scope="col-auto">#</th>
+          <th scope="col-auto">
+            First Name
+            <input type="radio" class="btn-check" name="orderBy" id="order1" autocomplete="off">
+            <label class="cursor_pointer btn btn-outline-primary p-1 border-0" for="order1">
+              <i *ngIf="orderStates['firstName']" class="fa-solid fa-arrow-down-a-z" (click)="descendingOrder('firstName')"></i>
+              <i *ngIf="!orderStates['firstName']" class="fa-solid fa-arrow-up-a-z" (click)="ascendingOrder('firstName')"></i>
+            </label>
+          </th>
+          <th scope="col-auto">
+            Last Name
+            <input type="radio" class="btn-check" name="orderBy" id="order2" autocomplete="off">
+            <label class="cursor_pointer btn btn-outline-primary p-1 border-0" for="order2">
+              <i *ngIf="orderStates['lastName']" class="fa-solid fa-arrow-down-a-z" (click)="descendingOrder('lastName')"></i>
+              <i *ngIf="!orderStates['lastName']" class="fa-solid fa-arrow-up-a-z" (click)="ascendingOrder('lastName')"></i>
+            </label>
+
+          </th>
+          <th scope="col-auto">
+            User Name
+            <input type="radio" class="btn-check" name="orderBy" id="order3" autocomplete="off">
+            <label class="cursor_pointer btn btn-outline-primary p-1 border-0" for="order3">
+              <i *ngIf="orderStates['userName']" class="fa-solid fa-arrow-down-a-z" (click)="descendingOrder('userName')"></i>
+              <i *ngIf="!orderStates['userName']" class="fa-solid fa-arrow-up-a-z" (click)="ascendingOrder('userName')"></i>
+            </label>
+
+          </th>
+          <th scope="col-auto">
+            Email
+            <input type="radio" class="btn-check" name="orderBy" id="order4" autocomplete="off">
+            <label class="cursor_pointer btn btn-outline-primary p-1 border-0" for="order4">
+              <i *ngIf="orderStates['email']" class="fa-solid fa-arrow-down-a-z" (click)="descendingOrder('email')"></i>
+              <i *ngIf="!orderStates['email']" class="fa-solid fa-arrow-up-a-z" (click)="ascendingOrder('email')"></i>
+            </label>
+
+          </th>
+          <th scope="col-auto">
+            Phone
+            <input type="radio" class="btn-check" name="orderBy" id="order5" autocomplete="off">
+            <label class="cursor_pointer btn btn-outline-primary p-1 border-0" for="order5">
+              <i *ngIf="orderStates['phone']" class="fa-solid fa-arrow-down-a-z" (click)="descendingOrder('phone')"></i>
+              <i *ngIf="!orderStates['phone']" class="fa-solid fa-arrow-up-a-z" (click)="ascendingOrder('phone')"></i>
+            </label>
+
+          </th>
+          <th scope="col-auto">
+            Registration Date
+            <input type="radio" class="btn-check" name="orderBy" id="order6" autocomplete="off">
+            <label class="cursor_pointer btn btn-outline-primary p-1 border-0" for="order6">
+              <i *ngIf="orderStates['registrationDate']" class="fa-solid fa-arrow-down-a-z" (click)="descendingOrder('registrationDate')"></i>
+              <i *ngIf="!orderStates['registrationDate']" class="fa-solid fa-arrow-up-a-z" (click)="ascendingOrder('registrationDate')"></i>
+            </label>
+
+          </th>
+          <th scope="col-auto"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="filteredList.length === 0">
+          <th colspan="8" class="ps-4">No users found</th>
+        </tr>
+        <tr
+          class="cursor_pointer"
+          *ngFor="let item of filteredList; let i = index"
+        >
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ item.firstName }}</td>
+          <td>{{ item.lastName }}</td>
+          <td>{{ item.userName }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.phone }}</td>
+          <td>{{ item.registrationDate | date }}</td>
+          <td>
+            <div class="text-danger">
+              <i class="fa-solid fa-trash" (click)="confirmUserDeletion(item)"></i>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
