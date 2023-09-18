@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app_register.app.domain.UserEntity;
@@ -40,11 +41,11 @@ public class UserController {
 		return userService.addUser(newUser);
 	}
 
-	@DeleteMapping("/deleteUser/{userId}")
+	@DeleteMapping("/deleteUser")
 	@Operation(summary = "This service method is used to delete a user from the system by their user ID.")
-	public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
+	public ResponseEntity<?> deleteUser(@RequestParam("userId") Long userId) {
 		userService.deleteUserById(userId);
-		return ResponseEntity.ok("User deleted successfully");
+		return ResponseEntity.ok("{\"message\": \"User deleted successfully\"}");
 	}
 
 	@PutMapping("/updateUser/{userId}")

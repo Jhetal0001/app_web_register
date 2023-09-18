@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../services/utils.service';
-import { USER } from '../models/user.model';
+import { User } from '../models/user.model';
 import {
   animate,
   state,
@@ -8,6 +8,9 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { UserService } from '../services/user.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalConfirmComponent } from '../components/modal-confirm/modal-confirm.component';
 
 /**
  * Component that displays a list of users and provides filtering and sorting options.
@@ -29,209 +32,9 @@ import {
     ]),
   ],
 })
-export class UserListComponent {
-  filteredList: USER[] = [
-    {
-      id: 1,
-      firstName: 'Jhon',
-      lastName: 'Vasquez',
-      userName: 'Jhetal00',
-      phone: '3195493430',
-      email: 'jhetal00@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Diego',
-      lastName: 'Martinez',
-      userName: 'diego278',
-      phone: '3112547845',
-      email: 'diego450@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Mario',
-      lastName: 'Cimarro',
-      userName: 'mario_23',
-      phone: '3051245782',
-      email: 'mario_278@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Scarllette',
-      lastName: 'Diaz',
-      userName: 'Scar250',
-      phone: '3115478451',
-      email: 'scarlette534@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Loraines',
-      lastName: 'Ortiz',
-      userName: 'loris',
-      phone: '3112669729',
-      email: 'loraine960918@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Jhon',
-      lastName: 'Balbuena',
-      userName: 'jhon_bal_12',
-      phone: '3201547845',
-      email: 'jhonbal_4512@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Catherine',
-      lastName: 'Vasquez',
-      userName: 'Jincer',
-      phone: '3125554856',
-      email: 'jinethcat@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Andres',
-      lastName: 'Vasquez',
-      userName: 'Andres_4s521',
-      phone: '3162451232',
-      email: 'andresvas@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Maria',
-      lastName: 'Garcia',
-      userName: 'Mari1969',
-      phone: '3112140575',
-      email: 'jhetal02@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Ivi',
-      lastName: 'Vasquez',
-      userName: 'iviqueen00',
-      phone: '3024514578',
-      email: 'iviqueen212@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Rosaire',
-      lastName: 'Vera',
-      userName: 'Rosita_vera_15',
-      phone: '3195451245',
-      email: 'rosirevera124_45@gmail.com',
-      registrationDate: new Date(),
-    },
-  ];
-  userList: USER[] = [
-    {
-      id: 1,
-      firstName: 'Jhon',
-      lastName: 'Vasquez',
-      userName: 'Jhetal00',
-      phone: '3195493430',
-      email: 'jhetal00@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Diego',
-      lastName: 'Martinez',
-      userName: 'diego278',
-      phone: '3112547845',
-      email: 'diego450@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Mario',
-      lastName: 'Cimarro',
-      userName: 'mario_23',
-      phone: '3051245782',
-      email: 'mario_278@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Scarllette',
-      lastName: 'Diaz',
-      userName: 'Scar250',
-      phone: '3115478451',
-      email: 'scarlette534@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Loraines',
-      lastName: 'Ortiz',
-      userName: 'loris',
-      phone: '3112669729',
-      email: 'loraine960918@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Jhon',
-      lastName: 'Balbuena',
-      userName: 'jhon_bal_12',
-      phone: '3201547845',
-      email: 'jhonbal_4512@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Catherine',
-      lastName: 'Vasquez',
-      userName: 'Jincer',
-      phone: '3125554856',
-      email: 'jinethcat@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Andres',
-      lastName: 'Vasquez',
-      userName: 'Andres_4s521',
-      phone: '3162451232',
-      email: 'andresvas@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Maria',
-      lastName: 'Garcia',
-      userName: 'Mari1969',
-      phone: '3112140575',
-      email: 'jhetal02@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Ivi',
-      lastName: 'Vasquez',
-      userName: 'iviqueen00',
-      phone: '3024514578',
-      email: 'iviqueen212@gmail.com',
-      registrationDate: new Date(),
-    },
-    {
-      id: 1,
-      firstName: 'Rosaire',
-      lastName: 'Vera',
-      userName: 'Rosita_vera_15',
-      phone: '3195451245',
-      email: 'rosirevera124_45@gmail.com',
-      registrationDate: new Date(),
-    },
-  ];
+export class UserListComponent implements OnInit {
+  filteredList: User[] = [];
+  userList: User[] = [];
   orderStates: { [key: string]: boolean } = {
     firstName: true,
     lastName: true,
@@ -244,6 +47,12 @@ export class UserListComponent {
   filter = '';
   filterBy = 'firstName';
   filterRegistrationDate = '';
+
+  constructor(
+    private userService: UserService,
+    private UTIL: UtilsService,
+    private ngbModal: NgbModal
+  ) {}
 
   /**
    * Filters the user list based on the selected filter criteria.
@@ -307,7 +116,7 @@ export class UserListComponent {
    * @param {string} converterDate - The date string to be converted.
    * @returns {string} The formatted date string.
    */
-  dateFormat(converterDate: string) {
+  dateFormat(converterDate: string): string {
     const date = new Date(converterDate);
 
     date.setDate(date.getDate() + 1);
@@ -488,5 +297,78 @@ export class UserListComponent {
       default:
         break;
     }
+  }
+
+  /**
+   * Deletes a user by their ID.
+   * @param {number | undefined} id - The ID of the user to delete.
+   * @returns {void}
+   */
+  deleteUser(id?: number): void {
+    this.userService.deleteUser(id as number).subscribe({
+      next: () => {
+        this.UTIL.showAlert(
+          'The user has been deleted successfully',
+          'success'
+        );
+      },
+      error: (error) => {
+        console.log(error);
+        this.UTIL.showAlert(
+          'An error occurred while deleting the user',
+          'danger'
+        );
+      },
+      complete: () => {
+        this.loadUsers();
+      },
+    });
+  }
+
+  /**
+   * Opens a confirmation modal for user deletion and proceeds if confirmed.
+   * @param {User} user - The user to be deleted.
+   * @returns {void}
+   */
+  confirmUserDeletion(user: User): void {
+    const modalRef = this.ngbModal.open(ModalConfirmComponent, {
+      centered: true,
+    });
+    modalRef.componentInstance.item = user.firstName + ' ' +  user.lastName;
+    modalRef.result.then((result) => {
+      if (result === 'confirmed') {
+        this.deleteUser(user.id);
+      }
+    });
+  }
+
+  /**
+   * Loads the user list from the service and updates the component's data.
+   * @returns {void}
+   */
+  loadUsers(): void {
+    this.userService.getAllUsers().subscribe({
+      next: (users: User[]) => {
+        this.userList = users;
+        this.filteredList = this.userList;
+      },
+      error: () =>
+        this.UTIL.showAlert(
+          'An error occurred while bringing the user list',
+          'danger'
+        ),
+      complete: () => {
+        this.UTIL.hideLoad();
+      }
+    });
+  }
+
+  /**
+   * Initializes the component and fetches the user list from the service.
+   * @returns {void}
+   */
+  ngOnInit(): void {
+    this.UTIL.showLoad();
+    this.loadUsers();
   }
 }

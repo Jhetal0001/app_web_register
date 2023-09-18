@@ -20,12 +20,25 @@
           </div>
         </div>
       </div>
+      <div class="col-1">
+        <div class="form-floating">
+          <input class="form-control " type="text" name="code" id="code" [ngClass]="{'is-invalid': validatedForm && newUserForm.controls['code'].invalid}" placeholder="+57" formControlName="code" required>
+          <label for="code">Area code</label>
+          <div *ngIf="newUserForm.controls['code'].invalid" class="invalid-feedback">
+            Area code is required, must be <b>2</b> characters.
+          </div>
+        </div>
+      </div>
       <div class="col-md">
-        <div class="form-floating mb-3">
-          <input type="text" id="phoneNumber" class="form-control rounded-3" placeholder="phoneNumber" autocomplete="false" formControlName="phoneNumber" required>
-          <label for="phoneNumber">Phone Number</label>
-          <div *ngIf="validatedForm && newUserForm?.get('phoneNumber')?.hasError('required')" class="invalid-feedback">
-            Phone number is required.
+        <div class="col-md">
+          <div class="input-group-append">
+            <div class="form-floating mb-3">
+              <input type="text" id="phoneNumber" class="form-control rounded-3" [ngClass]="{'is-invalid': validatedForm && newUserForm.controls['phoneNumber'].invalid}" placeholder="Phone Number" autocomplete="false" formControlName="phoneNumber" required>
+              <label for="phoneNumber">Phone Number</label>
+              <div *ngIf="newUserForm.controls['phoneNumber'].invalid" class="invalid-feedback">
+                Phone number is required, must be <b>10</b> characters.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -34,7 +47,7 @@
     <div class="row g-2">
       <div class="col-md">
         <div class="form-floating mb-3">
-          <input type="text" id="address" class="form-control rounded-3" [ngClass]="{'is-invalid': validatedForm && newUserForm.controls['address'].invalid}" autocomplete="false" placeholder="address" formControlName="address" required>
+          <input type="text" id="address" class="form-control rounded-3" autocomplete="false" placeholder="address" formControlName="address" required>
           <label for="address">Address</label>
           <div *ngIf="newUserForm.controls['address'].invalid" class="invalid-feedback">
             Address is required.

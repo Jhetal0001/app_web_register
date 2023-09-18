@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Users")
@@ -18,7 +21,7 @@ public class UserEntity {
 	private Long id;
 
 	@Column(name = "user_name", nullable = false)
-	private String username;
+	private String userName;
 
 	@Column(name = "password", nullable = false)
 	private String password;
@@ -48,10 +51,18 @@ public class UserEntity {
 	private String gender;
 
 	@Column(name = "birth_date")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date birthDate;
 
 	@Column(name = "registration_date")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date registrationDate;
+
+	@PrePersist
+	protected void onCreate() {
+		registrationDate = new Date();
+		registrationDate = new Date();
+	}
 
 	public Long getId() {
 		return id;
@@ -61,12 +72,12 @@ public class UserEntity {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {

@@ -1,0 +1,14 @@
+<div class="modal-content rounded-3 shadow">
+  <div class="modal-body p-4 text-center">
+    <h5 class="mb-2">Confirm action</h5>
+    <p class="mb-0">You want to delete the user: <b class="text-primary">{{item}}</b>?</p>
+  </div>
+  <div class="modal-footer flex-nowrap p-0">
+    <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end text-danger" (click)="modal.close('confirmed')"><strong>Yes</strong></button>
+    <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" (click)="modal.close('cancel')">No</button>
+  </div>
+</div>
+
+
+
+

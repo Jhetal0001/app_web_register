@@ -14,6 +14,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { UserService } from 'src/app/services/user.service';
 
 /**
  * Component that represents a registration form for user sign-up.
@@ -52,10 +53,11 @@ export class RegistrationFormComponent {
     'Not applicable',
   ];
 
-  constructor(private fb: FormBuilder, private UTIL: UtilsService) {
+  constructor(private fb: FormBuilder, private UTIL: UtilsService, private userService: UserService) {
     this.newUserForm = this.fb.group({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
+      code: new FormControl('+57', [Validators.required, Validators.minLength(2)]),
       phoneNumber: new FormControl('', [
         Validators.required,
         Validators.minLength(10),
@@ -75,7 +77,7 @@ export class RegistrationFormComponent {
       userName: new FormControl('', [Validators.required]),
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(8),
+        Validators.minLength(4),
       ]),
     });
   }
@@ -115,6 +117,32 @@ export class RegistrationFormComponent {
   registerUser() {
     this.validatedFormTwo = true;
     if (this.newUserForm.valid && this.createUserForm.valid) {
+      let newUser = {
+        userName: this.createUserForm.controls['userName'].value,
+        password: this.createUserForm.controls['password'].value,
+        email: this.newUserForm.controls['email'].value,
+        firstName: this.newUserForm.controls['firstName'].value,
+        lastName: this.newUserForm.controls['lastName'].value,
+        phone: this.newUserForm.controls['code'].value + this.newUserForm.controls['phoneNumber'].value,
+        address: this.newUserForm.controls['address'].value,
+        city: this.newUserForm.controls['city'].value,
+        country: this.newUserForm.controls['country'].value,
+        gender: this.newUserForm.controls['gender'].value,
+        birthDate: this.newUserForm.controls['birthdate'].value,
+      }
+      this.userService.addUser(newUser).subscribe({next: () => {
+        this.UTIL.showLoad();
+        this.newUserForm.reset();
+        this.createUserForm.reset();
+        this.newUserFormValid = false;
+        this.validatedForm = false;
+        this.validatedFormTwo = false;
+      }, error: () => {
+        this.UTIL.showAlert('An error occurred while creating the user','danger')
+      }, complete: () => {
+        this.UTIL.showAlert('User created successfully','success');
+        this.UTIL.hideLoad();
+      }});
     } else {
       this.UTIL.showAlert(
         'Please validate all the fields of the form',

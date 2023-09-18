@@ -80,7 +80,7 @@ public class UserService {
 		if (optionalUser.isPresent()) {
 			UserEntity existingUser = optionalUser.get();
 
-			existingUser.setUsername(updatedUser.getUsername());
+			existingUser.setUserName(updatedUser.getUserName());
 
 			return userRepository.save(existingUser);
 		} else {

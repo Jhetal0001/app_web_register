@@ -11,6 +11,8 @@ import { AlertsComponent } from './components/alerts/alerts.component';
 import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { ModalConfirmComponent } from './components/modal-confirm/modal-confirm.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
     RegistrationFormComponent,
     UserListComponent,
     AlertsComponent,
-    NavBarComponent
+    NavBarComponent,
+    ModalConfirmComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

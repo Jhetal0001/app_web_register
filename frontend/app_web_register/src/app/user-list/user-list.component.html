@@ -93,7 +93,7 @@
           <td>{{ item.registrationDate | date }}</td>
           <td>
             <div class="text-danger">
-              <i class="fa-solid fa-trash"></i>
+              <i class="fa-solid fa-trash" (click)="confirmUserDeletion(item)"></i>
             </div>
           </td>
         </tr>

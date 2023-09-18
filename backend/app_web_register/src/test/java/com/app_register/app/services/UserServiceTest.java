@@ -40,7 +40,7 @@ public class UserServiceTest {
 	public void testAddUser() {
 		// Create a test user
 		UserEntity newUser = new UserEntity();
-		newUser.setUsername("jhetal01");
+		newUser.setUserName("jhetal01");
 		newUser.setPassword("Jhetal00");
 		// Add more attributes as needed
 
@@ -51,7 +51,7 @@ public class UserServiceTest {
 		UserEntity savedUser = userService.addUser(newUser);
 
 		// Verify that the user was saved successfully
-		assertEquals(newUser.getUsername(), savedUser.getUsername());
+		assertEquals(newUser.getUserName(), savedUser.getUserName());
 		// Add more assertions as needed
 	}
 
@@ -63,7 +63,7 @@ public class UserServiceTest {
 		// Create a test existing user
 		UserEntity existingUser = new UserEntity();
 		existingUser.setId(1L);
-		existingUser.setUsername("jhetal01");
+		existingUser.setUserName("jhetal01");
 		existingUser.setPassword("jhetal00");
 		existingUser.setEmail("jhetal00@gmail.com");
 
@@ -72,13 +72,13 @@ public class UserServiceTest {
 
 		// Create an updated user
 		UserEntity updatedUser = new UserEntity();
-		updatedUser.setUsername("jhetal01");
+		updatedUser.setUserName("jhetal01");
 
 		 // Simulate the repository behavior when saving the user
 	    when(userRepository.save(any(UserEntity.class))).thenAnswer(invocation -> {
 	        UserEntity savedEntity = invocation.getArgument(0);
 
-	        assertEquals(updatedUser.getUsername(), savedEntity.getUsername());
+	        assertEquals(updatedUser.getUserName(), savedEntity.getUserName());
 
 	        return savedEntity;
 	    });
@@ -87,7 +87,7 @@ public class UserServiceTest {
 		UserEntity updatedEntity = userService.updateUser(existingUser.getId(), updatedUser);
 
 		// Verify that the user was updated successfully
-		assertEquals(existingUser.getUsername(), updatedEntity.getUsername());
+		assertEquals(existingUser.getUserName(), updatedEntity.getUserName());
 		// Add more assertions as needed
 	}
 
@@ -120,7 +120,7 @@ public class UserServiceTest {
 		// Create a test user
 		UserEntity user = new UserEntity();
 		user.setId(userId);
-		user.setUsername("jhetal01");
+		user.setUserName("jhetal01");
 
 		// Simulate the repository behavior when finding a user by ID
 		when(userRepository.findById(userId)).thenReturn(Optional.of(user));
