@@ -58,7 +58,6 @@ export class UserListComponent implements OnInit {
    * Filters the user list based on the selected filter criteria.
    */
   applyFilter() {
-    console.log(this.filterBy);
     switch (this.filterBy) {
       case 'firstName':
         this.filteredList = this.userList?.filter((item) => {
@@ -312,8 +311,7 @@ export class UserListComponent implements OnInit {
           'success'
         );
       },
-      error: (error) => {
-        console.log(error);
+      error: () => {
         this.UTIL.showAlert(
           'An error occurred while deleting the user',
           'danger'
